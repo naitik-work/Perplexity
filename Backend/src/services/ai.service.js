@@ -6,7 +6,7 @@ temperature: 0
 });
 
 export async function testAi() {
-    model.invoke("What is AI explain under 100 words?")
+    model.invoke("Tell me about tajmahal history?")
         .then((response) => {
             console.log(response.text);
         })
