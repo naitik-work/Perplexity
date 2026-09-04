@@ -1,25 +1,35 @@
 import jwt from "jsonwebtoken";
 
 
-export async function authUser(req, res, next) {
+
+
+export function authUser(req, res, next) {
+
     const token = req.cookies.token;
+
     if (!token) {
         return res.status(401).json({
             message: "Unauthorized",
             success: false,
             err: "No token provided"
-        });
+        })
     }
-    try{
+
+    try {
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
         req.user = decoded;
-    }catch(err){
+
+        next();
+
+    } catch (err) {
         return res.status(401).json({
             message: "Unauthorized",
             success: false,
             err: "Invalid token"
-        });
+        })
     }
-    // If token is valid, proceed to the next route handler
-    next();
+
 }
+
